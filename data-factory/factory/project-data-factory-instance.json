@@ -1,0 +1,9 @@
+{
+	"name": "project-data-factory-instance",
+	"location": "southindia",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "950da8d9-0888-42ef-9e80-47d11a22c613",
+		"tenantId": "6598b6c3-9f78-49d6-9e9c-dffce28bba19"
+	}
+}
