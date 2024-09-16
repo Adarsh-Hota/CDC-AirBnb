@@ -1,9 +1,9 @@
 {
-	"name": "LoadCustomerDim",
+	"name": "LoadCustomerDimDataToSynapse",
 	"properties": {
 		"activities": [
 			{
-				"name": "Get Metadata1",
+				"name": "Get MetadataOfEachFileInCustomerRawDataContainer",
 				"type": "GetMetadata",
 				"dependsOn": [],
 				"policy": {
@@ -30,11 +30,11 @@
 				}
 			},
 			{
-				"name": "ForEach1",
+				"name": "ForEachFileInCustomerRawContainer",
 				"type": "ForEach",
 				"dependsOn": [
 					{
-						"activity": "Get Metadata1",
+						"activity": "Get MetadataOfEachFileInCustomerRawDataContainer",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -48,7 +48,7 @@
 					},
 					"activities": [
 						{
-							"name": "CopyDataToSynapseSQLPool",
+							"name": "CopyFileDataToSynapseSQLPool",
 							"type": "Copy",
 							"dependsOn": [],
 							"policy": {
@@ -112,11 +112,11 @@
 							]
 						},
 						{
-							"name": "CopyRawDataToArchive",
+							"name": "CopyFileDataToArchiveContainer",
 							"type": "Copy",
 							"dependsOn": [
 								{
-									"activity": "CopyDataToSynapseSQLPool",
+									"activity": "CopyFileDataToSynapseSQLPool",
 									"dependencyConditions": [
 										"Succeeded"
 									]
@@ -182,11 +182,11 @@
 							]
 						},
 						{
-							"name": "DeleteRawData",
+							"name": "DeleteRawDataFile",
 							"type": "Delete",
 							"dependsOn": [
 								{
-									"activity": "CopyRawDataToArchive",
+									"activity": "CopyFileDataToArchiveContainer",
 									"dependencyConditions": [
 										"Succeeded"
 									]
