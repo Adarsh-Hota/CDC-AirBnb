@@ -182,7 +182,7 @@
 							]
 						},
 						{
-							"name": "Delete1",
+							"name": "DeleteRawData",
 							"type": "Delete",
 							"dependsOn": [
 								{
@@ -201,7 +201,20 @@
 							},
 							"userProperties": [],
 							"typeProperties": {
-								"enableLogging": true
+								"dataset": {
+									"referenceName": "StgAccountCustomerDataRawContainer",
+									"type": "DatasetReference"
+								},
+								"enableLogging": false,
+								"storeSettings": {
+									"type": "AzureBlobFSReadSettings",
+									"recursive": true,
+									"wildcardFileName": {
+										"value": "@item().name",
+										"type": "Expression"
+									},
+									"enablePartitionDiscovery": false
+								}
 							}
 						}
 					]
