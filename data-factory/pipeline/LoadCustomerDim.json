@@ -112,7 +112,7 @@
 							]
 						},
 						{
-							"name": "Copy data2",
+							"name": "CopyRawDataToArchive",
 							"type": "Copy",
 							"dependsOn": [
 								{
@@ -131,15 +131,62 @@
 							},
 							"userProperties": [],
 							"typeProperties": {
-								"enableStaging": false
-							}
+								"source": {
+									"type": "DelimitedTextSource",
+									"storeSettings": {
+										"type": "AzureBlobFSReadSettings",
+										"recursive": true,
+										"wildcardFolderPath": "customer_raw_data",
+										"wildcardFileName": {
+											"value": "@item().name",
+											"type": "Expression"
+										},
+										"enablePartitionDiscovery": false
+									},
+									"formatSettings": {
+										"type": "DelimitedTextReadSettings"
+									}
+								},
+								"sink": {
+									"type": "DelimitedTextSink",
+									"storeSettings": {
+										"type": "AzureBlobFSWriteSettings"
+									},
+									"formatSettings": {
+										"type": "DelimitedTextWriteSettings",
+										"quoteAllText": true,
+										"fileExtension": ".csv"
+									}
+								},
+								"enableStaging": false,
+								"translator": {
+									"type": "TabularTranslator",
+									"typeConversion": true,
+									"typeConversionSettings": {
+										"allowDataTruncation": true,
+										"treatBooleanAsNumber": false
+									}
+								}
+							},
+							"inputs": [
+								{
+									"referenceName": "StgAccountCustomerDataRawContainer",
+									"type": "DatasetReference"
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "StgAccountCustomerDataArchiveContainer",
+									"type": "DatasetReference"
+								}
+							]
 						},
 						{
 							"name": "Delete1",
 							"type": "Delete",
 							"dependsOn": [
 								{
-									"activity": "Copy data2",
+									"activity": "CopyRawDataToArchive",
 									"dependencyConditions": [
 										"Succeeded"
 									]
