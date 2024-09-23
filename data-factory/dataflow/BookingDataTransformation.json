@@ -13,20 +13,14 @@
 				}
 			],
 			"sinks": [],
-			"transformations": [
-				{
-					"name": "BadRecords"
-				}
-			],
+			"transformations": [],
 			"scriptLines": [
 				"source(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     enableChangeFeed: true,",
 				"     changeFeedStartFromTheBeginning: false,",
 				"     format: 'document',",
-				"     systemColumns: false) ~> BookingData",
-				"BookingData split(check_out_date<check_in_date,",
-				"     disjoint: true) ~> BadRecords@(BadRecords, AcceptedRecords)"
+				"     systemColumns: false) ~> BookingData"
 			]
 		}
 	}
