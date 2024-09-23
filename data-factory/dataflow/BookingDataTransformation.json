@@ -1,0 +1,33 @@
+{
+	"name": "BookingDataTransformation",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "CosmoDBBookingDataset",
+						"type": "DatasetReference"
+					},
+					"name": "BookingData"
+				}
+			],
+			"sinks": [],
+			"transformations": [
+				{
+					"name": "BadRecords"
+				}
+			],
+			"scriptLines": [
+				"source(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     enableChangeFeed: true,",
+				"     changeFeedStartFromTheBeginning: false,",
+				"     format: 'document',",
+				"     systemColumns: false) ~> BookingData",
+				"BookingData split(check_out_date<check_in_date,",
+				"     disjoint: true) ~> BadRecords@(BadRecords, AcceptedRecords)"
+			]
+		}
+	}
+}
