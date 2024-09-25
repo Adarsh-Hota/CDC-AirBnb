@@ -43,7 +43,7 @@
 					"name": "JoinWithSynapse"
 				},
 				{
-					"name": "alterRow1"
+					"name": "SetInsertAndUpdateAlterRowPolicies"
 				},
 				{
 					"name": "FinalColumns"
@@ -116,8 +116,8 @@
 				"     desc(SynapseBookingFactTable@booking_id, true),",
 				"     broadcast: 'auto')~> JoinWithSynapse",
 				"JoinWithSynapse alterRow(insertIf(isNull(SynapseBookingFactTable@booking_id)),",
-				"     updateIf(not(isNull(SynapseBookingFactTable@booking_id)))) ~> alterRow1",
-				"alterRow1 select(mapColumn(",
+				"     updateIf(not(isNull(SynapseBookingFactTable@booking_id)))) ~> SetInsertAndUpdateAlterRowPolicies",
+				"SetInsertAndUpdateAlterRowPolicies select(mapColumn(",
 				"          booking_id = DerivedColumn@booking_id,",
 				"          property_id = DerivedColumn@property_id,",
 				"          customer_id = DerivedColumn@customer_id,",
@@ -127,7 +127,6 @@
 				"          booking_date = DerivedColumn@booking_date,",
 				"          amount = DerivedColumn@amount,",
 				"          currency = DerivedColumn@currency,",
-				"          property_location,",
 				"          timestamp = DerivedColumn@timestamp,",
 				"          stay_duration = DerivedColumn@stay_duration,",
 				"          booking_year = DerivedColumn@booking_year,",
