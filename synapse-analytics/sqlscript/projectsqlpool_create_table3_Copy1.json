@@ -2,7 +2,7 @@
 	"name": "projectsqlpool_create_table3_Copy1",
 	"properties": {
 		"content": {
-			"query": "CREATE TABLE airbnb.bookings_fact (\n    booking_id NVARCHAR(100),\n    property_id NVARCHAR(100),\n    customer_id INT,\n    owner_id NVARCHAR(100),\n    check_in_date DATE,\n    check_out_date DATE,\n    booking_date DATETIME,\n    amount FLOAT,\n    currency NVARCHAR(10),\n    city NVARCHAR(100),\n    country NVARCHAR(100),\n    full_address NVARCHAR(255),\n    stay_duration BIGINT,\n    booking_year INT,\n    booking_month INT,\n    timestamp DATETIME\n);\n\nselect * from airbnb.bookings_fact;",
+			"query": "CREATE PROCEDURE airbnb.BookingAggregation\nAS\nBEGIN\n    TRUNCATE TABLE airbnb.BookingCustomerAggregation;\n\n    INSERT INTO airbnb.BookingCustomerAggregation\n    SELECT \n        c.country,\n        COUNT_BIG(*) AS total_bookings,\n        SUM(ISNULL(b.amount, 0)) AS total_amount,\n        MAX(b.booking_date) AS last_booking_date\n    FROM \n        airbnb.bookings_fact b\n    JOIN \n        airbnb.customer_dim c ON b.customer_id = c.customer_id\n    GROUP BY \n        c.country;\nEND;\n\nEXEC [airbnb].[BookingAggregation];\n\nselect * from airbnb.BookingCustomerAggregation;",
 			"metadata": {
 				"language": "sql"
 			},
