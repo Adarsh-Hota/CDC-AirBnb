@@ -1,0 +1,17 @@
+{
+	"name": "projectsqlpool_create_table3",
+	"properties": {
+		"content": {
+			"query": "CREATE TABLE airbnb.BookingCustomerAggregation\nWITH (DISTRIBUTION = ROUND_ROBIN)\nAS\nSELECT \n    c.country,\n    COUNT_BIG(*) AS total_bookings,\n    SUM(ISNULL(b.amount, 0)) AS total_amount,\n    MAX(b.booking_date) AS last_booking_date\nFROM \n    airbnb.bookings_fact b\nJOIN \n    airbnb.customer_dim c ON b.customer_id = c.customer_id\nGROUP BY \n    c.country;\n\nselect * from airbnb.BookingCustomerAggregation;",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "projectsqlpool",
+				"poolName": "projectsqlpool"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
