@@ -1,0 +1,17 @@
+{
+	"name": "projectsqlpool_create_user",
+	"properties": {
+		"content": {
+			"query": "CREATE USER [project-data-factory-instance] FROM EXTERNAL PROVIDER;\nEXEC sp_addrolemember 'db_datareader', 'project-data-factory-instance';\nEXEC sp_addrolemember 'db_datawriter', 'project-data-factory-instance';",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "projectsqlpool",
+				"poolName": "projectsqlpool"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
