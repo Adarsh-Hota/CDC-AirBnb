@@ -848,7 +848,7 @@
 						"          booking_id as string,",
 						"          property_id as string,",
 						"          customer_id as string,",
-						"          owner_id as date,",
+						"          owner_id as string,",
 						"          check_in_date as date,",
 						"          check_out_date as date,",
 						"          booking_date as date,",
