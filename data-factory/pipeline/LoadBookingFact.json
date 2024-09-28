@@ -1,9 +1,9 @@
 {
-	"name": "pipeline2",
+	"name": "LoadBookingFact",
 	"properties": {
 		"activities": [
 			{
-				"name": "BookingDataTransformation",
+				"name": "DatasetBookingFactTransformation",
 				"type": "ExecuteDataFlow",
 				"dependsOn": [],
 				"policy": {
@@ -27,6 +27,23 @@
 					"continuationSettings": {
 						"customizedCheckpointKey": "bc41e8df-9f45-4612-a10d-b21e0cd85d23"
 					}
+				}
+			},
+			{
+				"name": "SPAggregateData",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"linkedServiceName": {
+					"referenceName": "AzureSynapseAnalytics1",
+					"type": "LinkedServiceReference"
 				}
 			}
 		],
