@@ -19,11 +19,21 @@
 						"referenceName": "BookingDataTransformation",
 						"type": "DataFlowReference"
 					},
+					"staging": {
+						"linkedService": {
+							"referenceName": "AzureDataLakeStorage1",
+							"type": "LinkedServiceReference"
+						},
+						"folderPath": "airbnb/dataflow_staging_log"
+					},
 					"compute": {
 						"coreCount": 8,
 						"computeType": "General"
 					},
-					"traceLevel": "Fine",
+					"traceLevel": "None",
+					"cacheSinks": {
+						"firstRowOnly": true
+					},
 					"continuationSettings": {
 						"customizedCheckpointKey": "bc41e8df-9f45-4612-a10d-b21e0cd85d23"
 					}
