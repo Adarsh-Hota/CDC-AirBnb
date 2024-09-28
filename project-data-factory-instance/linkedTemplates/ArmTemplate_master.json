@@ -7,10 +7,6 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "project-data-factory-instance"
 		},
-		"AzureSynapseAnalytics1_password": {
-			"type": "secureString",
-			"metadata": "Secure string for 'password' of 'AzureSynapseAnalytics1'"
-		},
 		"CosmosDbNoSql1_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'CosmosDbNoSql1'"
@@ -26,10 +22,6 @@
 		"AzureSynapseAnalytics1_properties_typeProperties_database": {
 			"type": "string",
 			"defaultValue": "projectsqlpool"
-		},
-		"AzureSynapseAnalytics1_properties_typeProperties_userName": {
-			"type": "string",
-			"defaultValue": "sqladminuser"
 		},
 		"containerUri": {
 			"type": "string",
@@ -58,9 +50,6 @@
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
 					},
-					"AzureSynapseAnalytics1_password": {
-						"value": "[parameters('AzureSynapseAnalytics1_password')]"
-					},
 					"CosmosDbNoSql1_connectionString": {
 						"value": "[parameters('CosmosDbNoSql1_connectionString')]"
 					},
@@ -72,9 +61,6 @@
 					},
 					"AzureSynapseAnalytics1_properties_typeProperties_database": {
 						"value": "[parameters('AzureSynapseAnalytics1_properties_typeProperties_database')]"
-					},
-					"AzureSynapseAnalytics1_properties_typeProperties_userName": {
-						"value": "[parameters('AzureSynapseAnalytics1_properties_typeProperties_userName')]"
 					}
 				}
 			},

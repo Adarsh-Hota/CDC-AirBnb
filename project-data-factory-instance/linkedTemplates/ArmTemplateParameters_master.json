@@ -5,9 +5,6 @@
 		"factoryName": {
 			"value": "project-data-factory-instance"
 		},
-		"AzureSynapseAnalytics1_password": {
-			"value": ""
-		},
 		"CosmosDbNoSql1_connectionString": {
 			"value": ""
 		},
@@ -19,9 +16,6 @@
 		},
 		"AzureSynapseAnalytics1_properties_typeProperties_database": {
 			"value": "projectsqlpool"
-		},
-		"AzureSynapseAnalytics1_properties_typeProperties_userName": {
-			"value": "sqladminuser"
 		},
 		"containerUri": {
 			"value": ""

@@ -7,10 +7,6 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "project-data-factory-instance"
 		},
-		"AzureSynapseAnalytics1_password": {
-			"type": "secureString",
-			"metadata": "Secure string for 'password' of 'AzureSynapseAnalytics1'"
-		},
 		"CosmosDbNoSql1_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'CosmosDbNoSql1'"
@@ -26,10 +22,6 @@
 		"AzureSynapseAnalytics1_properties_typeProperties_database": {
 			"type": "string",
 			"defaultValue": "projectsqlpool"
-		},
-		"AzureSynapseAnalytics1_properties_typeProperties_userName": {
-			"type": "string",
-			"defaultValue": "sqladminuser"
 		}
 	},
 	"variables": {
@@ -139,7 +131,7 @@
 								"firstRowOnly": true
 							},
 							"continuationSettings": {
-								"customizedCheckpointKey": "bc41e8df-9f45-4612-a10d-b21e0cd85d23"
+								"customizedCheckpointKey": "60ee6727-39f6-4f39-9a31-e82cf1eed033"
 							}
 						}
 					},
@@ -767,12 +759,7 @@
 					"database": "[parameters('AzureSynapseAnalytics1_properties_typeProperties_database')]",
 					"encrypt": "mandatory",
 					"trustServerCertificate": true,
-					"authenticationType": "SQL",
-					"userName": "[parameters('AzureSynapseAnalytics1_properties_typeProperties_userName')]",
-					"password": {
-						"type": "SecureString",
-						"value": "[parameters('AzureSynapseAnalytics1_password')]"
-					}
+					"authenticationType": "SystemAssignedManagedIdentity"
 				}
 			},
 			"dependsOn": []
@@ -866,8 +853,8 @@
 						"source(output(",
 						"          booking_id as string,",
 						"          property_id as string,",
-						"          customer_id as integer,",
-						"          owner_id as string,",
+						"          customer_id as string,",
+						"          owner_id as integer,",
 						"          check_in_date as date,",
 						"          check_out_date as date,",
 						"          booking_date as timestamp,",
