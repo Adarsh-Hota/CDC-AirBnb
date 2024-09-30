@@ -2,7 +2,7 @@
 	"name": "projectsqlpool_create_user",
 	"properties": {
 		"content": {
-			"query": "CREATE USER [project-data-factory-instance] FROM EXTERNAL PROVIDER;\nEXEC sp_addrolemember 'db_datareader', 'project-data-factory-instance';\nEXEC sp_addrolemember 'db_datawriter', 'project-data-factory-instance';\n\nGRANT SELECT ON SCHEMA::airbnb TO [project-data-factory-instance];\nGRANT INSERT, UPDATE, DELETE ON SCHEMA::airbnb TO [project-data-factory-instance];\n\nSELECT \n    dp.name AS PrincipalName,\n    dp.type_desc AS PrincipalType,\n    p.permission_name AS PermissionName,\n    p.state_desc AS PermissionState\nFROM \n    sys.database_permissions p\nJOIN \n    sys.database_principals dp ON p.grantee_principal_id = dp.principal_id\nWHERE dp.name = 'project-data-factory-instance';",
+			"query": "CREATE USER [project-data-factory-instance] FROM EXTERNAL PROVIDER;\nEXEC sp_addrolemember 'db_datareader', 'project-data-factory-instance';\nEXEC sp_addrolemember 'db_datawriter', 'project-data-factory-instance';\n\nGRANT SELECT, INSERT, UPDATE, DELETE, CONTROL ON SCHEMA::airbnb TO [project-data-factory-instance];\n\nSELECT \n    dp.name AS PrincipalName,\n    dp.type_desc AS PrincipalType,\n    p.permission_name AS PermissionName,\n    p.state_desc AS PermissionState\nFROM \n    sys.database_permissions p\nJOIN \n    sys.database_principals dp ON p.grantee_principal_id = dp.principal_id\nWHERE dp.name = 'project-data-factory-instance';",
 			"metadata": {
 				"language": "sql"
 			},
