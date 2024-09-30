@@ -707,8 +707,8 @@
 						"source(output(",
 						"          booking_id as string,",
 						"          property_id as string,",
-						"          customer_id as string,",
-						"          owner_id as integer,",
+						"          customer_id as integer,",
+						"          owner_id as string,",
 						"          check_in_date as date,",
 						"          check_out_date as date,",
 						"          booking_date as timestamp,",
@@ -748,7 +748,7 @@
 						"DerivedColumn, SynapseBookingFactTable lookup(DerivedColumn@booking_id == SynapseBookingFactTable@booking_id,",
 						"     multiple: false,",
 						"     pickup: 'first',",
-						"     desc(SynapseBookingFactTable@booking_id, true),",
+						"     desc(SynapseBookingFactTable@timestamp, true),",
 						"     broadcast: 'auto')~> JoinWithSynapse",
 						"JoinWithSynapse alterRow(insertIf(isNull(SynapseBookingFactTable@booking_id)),",
 						"     updateIf(not(isNull(SynapseBookingFactTable@booking_id)))) ~> SetInsertAndUpdateAlterRowPolicies",
@@ -858,7 +858,7 @@
 								"firstRowOnly": true
 							},
 							"continuationSettings": {
-								"customizedCheckpointKey": "60ee6727-39f6-4f39-9a31-e82cf1eed033"
+								"customizedCheckpointKey": "5f9e0226-04df-431f-bbad-87f620c91540"
 							}
 						}
 					},
