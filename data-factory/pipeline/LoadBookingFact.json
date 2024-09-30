@@ -24,7 +24,7 @@
 							"referenceName": "AzureDataLakeStorage1",
 							"type": "LinkedServiceReference"
 						},
-						"folderPath": "airbnb"
+						"folderPath": ""
 					},
 					"compute": {
 						"coreCount": 8,
