@@ -24,7 +24,7 @@
 							"referenceName": "AzureDataLakeStorage1",
 							"type": "LinkedServiceReference"
 						},
-						"folderPath": "airbnb"
+						"folderPath": "airbnb/dataflow_staging_log"
 					},
 					"compute": {
 						"coreCount": 8,
