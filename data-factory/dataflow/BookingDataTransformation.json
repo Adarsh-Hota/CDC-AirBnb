@@ -116,7 +116,7 @@
 				"     desc(SynapseBookingFactTable@timestamp, true),",
 				"     broadcast: 'auto')~> JoinWithSynapse",
 				"JoinWithSynapse alterRow(insertIf(isNull(SynapseBookingFactTable@booking_id)),",
-				"     updateIf(not(isNull(SynapseBookingFactTable@booking_id)))) ~> SetInsertAndUpdateAlterRowPolicies",
+				"     upsertIf(not(isNull(SynapseBookingFactTable@booking_id)))) ~> SetInsertAndUpdateAlterRowPolicies",
 				"SetInsertAndUpdateAlterRowPolicies select(mapColumn(",
 				"          booking_id = DerivedColumn@booking_id,",
 				"          property_id = DerivedColumn@property_id,",
