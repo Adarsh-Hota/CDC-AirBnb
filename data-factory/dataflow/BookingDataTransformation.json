@@ -159,7 +159,7 @@
 				"     ),",
 				"     deletable:false,",
 				"     insertable:true,",
-				"     updateable:false,",
+				"     updateable:true,",
 				"     upsertable:true,",
 				"     keys:['booking_id'],",
 				"     format: 'table',",
