@@ -1,5 +1,5 @@
 {
-	"name": "Table_From_project_SqlDatabase1",
+	"name": "Database_project_SqlDatabase1",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "projectSqlDatabase1",
