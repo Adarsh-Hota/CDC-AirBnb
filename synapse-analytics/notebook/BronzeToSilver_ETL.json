@@ -13,7 +13,7 @@
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "95228ee6-7fe2-482c-91b9-34b5385b7470"
+				"spark.autotune.trackingId": "ed1776a6-8227-4ee1-a7b3-05307fefd328"
 			}
 		},
 		"metadata": {
@@ -72,7 +72,11 @@
 					}
 				},
 				"source": [
-					"# Transformation for Accounts dataset\r\n",
+					"'''\r\n",
+					"Transformation for Accounts dataset\r\n",
+					"A new column, \"AccountAgeYears\", is added, which calculates how long each account has been active \r\n",
+					"by determining the difference between the current date and the account's open date, then converting it to years.\r\n",
+					"'''\r\n",
 					"def transform_accounts():\r\n",
 					"    df = spark.read.parquet(f\"{base_path}Accounts/Accounts.parquet\")\r\n",
 					"    # Example transformation: Calculate account age in years\r\n",
