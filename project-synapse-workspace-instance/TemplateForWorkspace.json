@@ -46,7 +46,30 @@
 	},
 	"resources": [
 		{
-			"name": "[concat(parameters('workspaceName'), '/TableFromSQLDatabase')]",
+			"name": "[concat(parameters('workspaceName'), '/Files_From_projectDataLakeStorageAccount1')]",
+			"type": "Microsoft.Synapse/workspaces/datasets",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "projectDataLakeStorageAccount1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Parquet",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation"
+					},
+					"compressionCodec": "snappy"
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/linkedServices/projectDataLakeStorageAccount1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/Table_From_project_SqlDatabase1')]",
 			"type": "Microsoft.Synapse/workspaces/datasets",
 			"apiVersion": "2019-06-01-preview",
 			"properties": {
