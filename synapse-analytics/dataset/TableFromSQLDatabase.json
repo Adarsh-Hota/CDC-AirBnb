@@ -1,0 +1,12 @@
+{
+	"name": "TableFromSQLDatabase",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "projectSqlDatabase1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": []
+	}
+}
