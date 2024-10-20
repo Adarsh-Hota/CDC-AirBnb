@@ -12,15 +12,57 @@
 			"metadata": "Secure string for 'connectionString' of 'project-synapse-workspace-instance-WorkspaceDefaultSqlServer'",
 			"defaultValue": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=tcp:project-synapse-workspace-instance.sql.azuresynapse.net,1433;Initial Catalog=@{linkedService().DBName}"
 		},
+		"projectDataLakeStorageAccount1_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'projectDataLakeStorageAccount1'"
+		},
+		"projectSqlDatabase1_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'projectSqlDatabase1'"
+		},
 		"project-synapse-workspace-instance-WorkspaceDefaultStorage_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://projectsynapsedatalake.dfs.core.windows.net"
+		},
+		"projectDataLakeStorageAccount1_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://airbnbdatastorage.dfs.core.windows.net/"
+		},
+		"projectSqlDatabase1_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "project-sql-server.database.windows.net"
+		},
+		"projectSqlDatabase1_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "project-sql-database"
+		},
+		"projectSqlDatabase1_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "sql-server-admin"
 		}
 	},
 	"variables": {
 		"workspaceId": "[concat('Microsoft.Synapse/workspaces/', parameters('workspaceName'))]"
 	},
 	"resources": [
+		{
+			"name": "[concat(parameters('workspaceName'), '/TableFromSQLDatabase')]",
+			"type": "Microsoft.Synapse/workspaces/datasets",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "projectSqlDatabase1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [],
+				"typeProperties": {}
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/linkedServices/projectSqlDatabase1')]"
+			]
+		},
 		{
 			"name": "[concat(parameters('workspaceName'), '/project-synapse-workspace-instance-WorkspaceDefaultSqlServer')]",
 			"type": "Microsoft.Synapse/workspaces/linkedServices",
@@ -54,6 +96,57 @@
 				"type": "AzureBlobFS",
 				"typeProperties": {
 					"url": "[parameters('project-synapse-workspace-instance-WorkspaceDefaultStorage_properties_typeProperties_url')]"
+				},
+				"connectVia": {
+					"referenceName": "AutoResolveIntegrationRuntime",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/integrationRuntimes/AutoResolveIntegrationRuntime')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/projectDataLakeStorageAccount1')]",
+			"type": "Microsoft.Synapse/workspaces/linkedServices",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('projectDataLakeStorageAccount1_properties_typeProperties_url')]",
+					"accountKey": {
+						"type": "SecureString",
+						"value": "[parameters('projectDataLakeStorageAccount1_accountKey')]"
+					}
+				},
+				"connectVia": {
+					"referenceName": "AutoResolveIntegrationRuntime",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/integrationRuntimes/AutoResolveIntegrationRuntime')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/projectSqlDatabase1')]",
+			"type": "Microsoft.Synapse/workspaces/linkedServices",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSqlDatabase",
+				"typeProperties": {
+					"server": "[parameters('projectSqlDatabase1_properties_typeProperties_server')]",
+					"database": "[parameters('projectSqlDatabase1_properties_typeProperties_database')]",
+					"encrypt": "mandatory",
+					"trustServerCertificate": true,
+					"authenticationType": "SQL",
+					"userName": "[parameters('projectSqlDatabase1_properties_typeProperties_userName')]",
+					"password": {
+						"type": "SecureString",
+						"value": "[parameters('projectSqlDatabase1_password')]"
+					}
 				},
 				"connectVia": {
 					"referenceName": "AutoResolveIntegrationRuntime",
@@ -234,6 +327,31 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('workspaceName'), '/sparkpool1')]",
+			"type": "Microsoft.Synapse/workspaces/bigDataPools",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"autoPause": {
+					"enabled": true,
+					"delayInMinutes": 5
+				},
+				"autoScale": {
+					"enabled": false,
+					"maxNodeCount": 3,
+					"minNodeCount": 3
+				},
+				"nodeCount": 3,
+				"nodeSize": "Small",
+				"nodeSizeFamily": "MemoryOptimized",
+				"sparkVersion": "3.4",
+				"isComputeIsolationEnabled": false,
+				"sessionLevelPackagesEnabled": false,
+				"annotations": []
+			},
+			"dependsOn": [],
+			"location": "centralindia"
+		},
+		{
 			"name": "[concat(parameters('workspaceName'), '/projectsqlpool')]",
 			"type": "Microsoft.Synapse/workspaces/sqlPools",
 			"apiVersion": "2019-06-01-preview",
@@ -244,15 +362,6 @@
 			},
 			"dependsOn": [],
 			"location": "centralindia"
-		},
-		{
-			"name": "[concat(parameters('workspaceName'), '/sparkpool1')]",
-			"type": "Microsoft.Synapse/workspaces/bigDataPools",
-			"apiVersion": "2019-06-01-preview",
-			"properties": {
-				"annotations": []
-			},
-			"dependsOn": []
 		}
 	]
 }

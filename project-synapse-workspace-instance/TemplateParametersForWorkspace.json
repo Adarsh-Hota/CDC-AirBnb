@@ -8,8 +8,26 @@
 		"project-synapse-workspace-instance-WorkspaceDefaultSqlServer_connectionString": {
 			"value": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=tcp:project-synapse-workspace-instance.sql.azuresynapse.net,1433;Initial Catalog=@{linkedService().DBName}"
 		},
+		"projectDataLakeStorageAccount1_accountKey": {
+			"value": ""
+		},
+		"projectSqlDatabase1_password": {
+			"value": ""
+		},
 		"project-synapse-workspace-instance-WorkspaceDefaultStorage_properties_typeProperties_url": {
 			"value": "https://projectsynapsedatalake.dfs.core.windows.net"
+		},
+		"projectDataLakeStorageAccount1_properties_typeProperties_url": {
+			"value": "https://airbnbdatastorage.dfs.core.windows.net/"
+		},
+		"projectSqlDatabase1_properties_typeProperties_server": {
+			"value": "project-sql-server.database.windows.net"
+		},
+		"projectSqlDatabase1_properties_typeProperties_database": {
+			"value": "project-sql-database"
+		},
+		"projectSqlDatabase1_properties_typeProperties_userName": {
+			"value": "sql-server-admin"
 		}
 	}
 }
