@@ -13,7 +13,7 @@
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "dcd7d337-5357-4f49-b678-ec1ea5df7ddc"
+				"spark.autotune.trackingId": "b89f0835-a5ae-4226-a7a4-e53623080f5a"
 			}
 		},
 		"metadata": {
@@ -32,7 +32,8 @@
 			{
 				"cell_type": "code",
 				"source": [
-					"from pyspark.sql.functions import *"
+					"from pyspark.sql.functions import *\r\n",
+					""
 				],
 				"execution_count": null
 			},
@@ -54,7 +55,8 @@
 					"base_path = \"abfss://fintech@airbnbdatagds.dfs.core.windows.net/bronze/fintech/\"\r\n",
 					"output_base_path = \"abfss://fintech@airbnbdatagds.dfs.core.windows.net/silver/fintech/\"\r\n",
 					"\r\n",
-					"spark.conf.set(\"spark.databricks.delta.schema.autoMerge.enabled\", \"true\")"
+					"spark.conf.set(\"spark.databricks.delta.schema.autoMerge.enabled\", \"true\")\r\n",
+					""
 				],
 				"execution_count": null
 			},
@@ -82,7 +84,8 @@
 					"    # Transformation: Calculate account age in years\r\n",
 					"    df_transformed = df.withColumn(\"AccountAgeYears\", \r\n",
 					"                                   round(datediff(current_date(), col(\"OpenDate\")) / 365.25, 2))\r\n",
-					"    df_transformed.write.format(\"delta\").mode(\"overwrite\").save(f\"{output_base_path}Accounts/\")"
+					"    df_transformed.write.format(\"delta\").mode(\"overwrite\").save(f\"{output_base_path}Accounts/\")\r\n",
+					"    "
 				],
 				"execution_count": null
 			},
@@ -112,7 +115,8 @@
 					"    df_transformed = df.withColumn(\"FullName\", concat_ws(\" \", col(\"FirstName\"), col(\"LastName\"))) \\\r\n",
 					"                       .withColumn(\"MaskedEmail\", \r\n",
 					"                                   concat(lit(\"***@\"), substring_index(col(\"Email\"), \"@\", -1)))\r\n",
-					"    df_transformed.write.format(\"delta\").mode(\"overwrite\").save(f\"{output_base_path}Customers/\")"
+					"    df_transformed.write.format(\"delta\").mode(\"overwrite\").save(f\"{output_base_path}Customers/\")\r\n",
+					"    "
 				],
 				"execution_count": null
 			},
@@ -151,7 +155,8 @@
 					"                                   (col(\"LoanAmount\") * col(\"InterestRate\") / 100).cast(\"decimal(28,8)\")) \\\r\n",
 					"                       .withColumn(\"LoanDurationYears\", \r\n",
 					"                                   round(datediff(col(\"LoanEndDate\"), col(\"LoanStartDate\")) / 365.25, 2))\r\n",
-					"    df_transformed.write.format(\"delta\").mode(\"overwrite\").save(f\"{output_base_path}Loans/\")"
+					"    df_transformed.write.format(\"delta\").mode(\"overwrite\").save(f\"{output_base_path}Loans/\")\r\n",
+					"    "
 				],
 				"execution_count": null
 			},
@@ -179,7 +184,8 @@
 					"    # Transformation: Calculate days since last payment\r\n",
 					"    df_transformed = df.withColumn(\"DaysSinceLastPayment\", \r\n",
 					"                                   datediff(current_date(), col(\"PaymentDate\")))\r\n",
-					"    df_transformed.write.format(\"delta\").mode(\"overwrite\").save(f\"{output_base_path}Payments/\")"
+					"    df_transformed.write.format(\"delta\").mode(\"overwrite\").save(f\"{output_base_path}Payments/\")\r\n",
+					"    "
 				],
 				"execution_count": null
 			},
@@ -211,7 +217,8 @@
 					"                                   when(col(\"TransactionType\") == \"Deposit\", \"Income\")\r\n",
 					"                                   .when(col(\"TransactionType\") == \"Withdrawal\", \"Expense\")\r\n",
 					"                                   .otherwise(\"Other\"))\r\n",
-					"    df_transformed.write.format(\"delta\").mode(\"overwrite\").save(f\"{output_base_path}Transactions/\")"
+					"    df_transformed.write.format(\"delta\").mode(\"overwrite\").save(f\"{output_base_path}Transactions/\")\r\n",
+					"    "
 				],
 				"execution_count": null
 			},
@@ -251,7 +258,8 @@
 					"transform_payments()\r\n",
 					"transform_transactions()\r\n",
 					"\r\n",
-					"print(\"Bronze To Silver Completed !!\")"
+					"print(\"Bronze To Silver Completed !!\")\r\n",
+					""
 				],
 				"execution_count": null
 			}
