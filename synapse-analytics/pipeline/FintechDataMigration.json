@@ -183,10 +183,108 @@
 						"type": "BigDataPoolReference"
 					},
 					"executorSize": "Small",
-					"driverSize": "Small"
+					"conf": {
+						"spark.dynamicAllocation.enabled": null,
+						"spark.dynamicAllocation.minExecutors": null,
+						"spark.dynamicAllocation.maxExecutors": null
+					},
+					"driverSize": "Small",
+					"numExecutors": null
+				}
+			},
+			{
+				"name": "PipelineSuccessNotification",
+				"type": "WebActivity",
+				"dependsOn": [
+					{
+						"activity": "SilverToGold_ETL",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"method": "POST",
+					"headers": {
+						"Content-Type": "application/json"
+					},
+					"url": "https://prod-28.southindia.logic.azure.com:443/workflows/e9689a46e2924861b8116f99d3477733/triggers/When_a_HTTP_request_is_received/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2FWhen_a_HTTP_request_is_received%2Frun&sv=1.0&sig=0j1PP7ayJt9SFrYzWWfviAJvxyNl9N5faRxPpYQOGZs",
+					"connectVia": {
+						"referenceName": "AutoResolveIntegrationRuntime",
+						"type": "IntegrationRuntimeReference"
+					},
+					"body": {
+						"value": "{\n    \"to\": \"@{pipeline().parameters.to}\",\n    \"subject\": \"@{pipeline().parameters.emailSubjectSuccess}\",\n    \"body\": \"@{pipeline().parameters.emailBodySuccess}\"\n}",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "PipelineFailedNotification",
+				"type": "WebActivity",
+				"dependsOn": [
+					{
+						"activity": "SilverToGold_ETL",
+						"dependencyConditions": [
+							"Failed"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"method": "POST",
+					"headers": {
+						"Content-Type": "application/json"
+					},
+					"url": "https://prod-28.southindia.logic.azure.com:443/workflows/e9689a46e2924861b8116f99d3477733/triggers/When_a_HTTP_request_is_received/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2FWhen_a_HTTP_request_is_received%2Frun&sv=1.0&sig=0j1PP7ayJt9SFrYzWWfviAJvxyNl9N5faRxPpYQOGZs",
+					"connectVia": {
+						"referenceName": "AutoResolveIntegrationRuntime",
+						"type": "IntegrationRuntimeReference"
+					},
+					"body": {
+						"value": "{\n    \"to\": \"@{pipeline().parameters.to}\",\n    \"subject\": \"@{pipeline().parameters.emailSubjectFailed}\",\n    \"body\": \"@{pipeline().parameters.emailBodyFailed}\"\n}",
+						"type": "Expression"
+					}
 				}
 			}
 		],
+		"parameters": {
+			"to": {
+				"type": "string",
+				"defaultValue": "adarshhota55@gmail.com"
+			},
+			"emailSubjectSuccess": {
+				"type": "string",
+				"defaultValue": "Fintech Pipeline Execution - Success"
+			},
+			"emailBodySuccess": {
+				"type": "string",
+				"defaultValue": "Fintech Pipeline Execution was completed successfully."
+			},
+			"emailSubjectFailed": {
+				"type": "string",
+				"defaultValue": "Fintech Pipeline Execution - Failed"
+			},
+			"emailBodyFailed": {
+				"type": "string",
+				"defaultValue": "Fintech Pipeline Execution failed."
+			}
+		},
 		"annotations": []
 	}
 }
