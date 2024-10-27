@@ -17,7 +17,7 @@
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "4e918927-98f9-4221-9d36-b327e3e42d40"
+				"spark.autotune.trackingId": "84f9762e-3a07-4f1e-9787-8df15382d517"
 			}
 		},
 		"metadata": {
@@ -54,7 +54,7 @@
 					"from pyspark.sql.functions import *\r\n",
 					""
 				],
-				"execution_count": 12
+				"execution_count": 22
 			},
 			{
 				"cell_type": "code",
@@ -77,7 +77,7 @@
 					"spark.conf.set(\"spark.databricks.delta.schema.autoMerge.enabled\", \"true\")\r\n",
 					""
 				],
-				"execution_count": 13
+				"execution_count": 23
 			},
 			{
 				"cell_type": "code",
@@ -93,9 +93,9 @@
 					}
 				},
 				"source": [
-					"print(f\"{base_path}Accounts/Accounts.parquet\")"
+					"df = spark.read.parquet(base_path)"
 				],
-				"execution_count": 14
+				"execution_count": 36
 			},
 			{
 				"cell_type": "code",
@@ -124,7 +124,7 @@
 					"    df_transformed.write.format(\"delta\").mode(\"overwrite\").save(f\"{output_base_path}Accounts/\")\r\n",
 					"    "
 				],
-				"execution_count": 15
+				"execution_count": 25
 			},
 			{
 				"cell_type": "code",
@@ -155,7 +155,7 @@
 					"    df_transformed.write.format(\"delta\").mode(\"overwrite\").save(f\"{output_base_path}Customers/\")\r\n",
 					"    "
 				],
-				"execution_count": 16
+				"execution_count": 26
 			},
 			{
 				"cell_type": "code",
@@ -195,7 +195,7 @@
 					"    df_transformed.write.format(\"delta\").mode(\"overwrite\").save(f\"{output_base_path}Loans/\")\r\n",
 					"    "
 				],
-				"execution_count": 17
+				"execution_count": 27
 			},
 			{
 				"cell_type": "code",
@@ -224,7 +224,7 @@
 					"    df_transformed.write.format(\"delta\").mode(\"overwrite\").save(f\"{output_base_path}Payments/\")\r\n",
 					"    "
 				],
-				"execution_count": 18
+				"execution_count": 28
 			},
 			{
 				"cell_type": "code",
@@ -257,7 +257,7 @@
 					"    df_transformed.write.format(\"delta\").mode(\"overwrite\").save(f\"{output_base_path}Transactions/\")\r\n",
 					"    "
 				],
-				"execution_count": 19
+				"execution_count": 29
 			},
 			{
 				"cell_type": "code",
@@ -298,7 +298,7 @@
 					"print(\"Bronze To Silver Completed !!\")\r\n",
 					""
 				],
-				"execution_count": 21
+				"execution_count": 31
 			}
 		]
 	}
