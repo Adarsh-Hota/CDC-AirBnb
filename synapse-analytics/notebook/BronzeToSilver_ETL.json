@@ -17,7 +17,7 @@
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "863451a6-fcf6-47d6-a92a-cea317bdc67d"
+				"spark.autotune.trackingId": "7f8b210f-f06f-4664-a33c-12abe4cafc39"
 			}
 		},
 		"metadata": {
@@ -77,7 +77,7 @@
 					"               \"org.apache.hadoop.fs.azurebfs.oauth2.ManagedIdentityTokenProvider\")\r\n",
 					"               "
 				],
-				"execution_count": null
+				"execution_count": 2
 			},
 			{
 				"cell_type": "code",
@@ -98,7 +98,7 @@
 					"output_base_path = \"abfss://fintech@airbnbdatastorage.dfs.core.windows.net/silver/fintech/\"\r\n",
 					""
 				],
-				"execution_count": 2
+				"execution_count": 3
 			},
 			{
 				"cell_type": "code",
@@ -116,7 +116,7 @@
 				"source": [
 					"df = spark.read.parquet(f\"{base_path}Accounts/Accounts.parquet\")"
 				],
-				"execution_count": null
+				"execution_count": 4
 			},
 			{
 				"cell_type": "code",
