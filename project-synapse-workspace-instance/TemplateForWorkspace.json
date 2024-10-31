@@ -712,7 +712,7 @@
 						"spark.dynamicAllocation.enabled": "false",
 						"spark.dynamicAllocation.minExecutors": "2",
 						"spark.dynamicAllocation.maxExecutors": "2",
-						"spark.autotune.trackingId": "555aa20a-d156-4c82-b453-d387c624652b"
+						"spark.autotune.trackingId": "ff2cc094-96b7-4659-b927-451fce17a606"
 					}
 				},
 				"metadata": {
@@ -767,11 +767,35 @@
 							}
 						},
 						"source": [
+							""
+						],
+						"outputs": [],
+						"execution_count": null
+					},
+					{
+						"cell_type": "code",
+						"metadata": {
+							"jupyter": {
+								"source_hidden": false,
+								"outputs_hidden": false
+							},
+							"nteract": {
+								"transient": {
+									"deleting": false
+								}
+							}
+						},
+						"source": [
 							"# Define paths\r\n",
 							"base_path = \"abfss://fintech@airbnbdatastorage.dfs.core.windows.net/bronze/fintech/\"\r\n",
 							"output_base_path = \"abfss://fintech@airbnbdatastorage.dfs.core.windows.net/silver/fintech/\"\r\n",
 							"\r\n",
 							"spark.conf.set(\"spark.databricks.delta.schema.autoMerge.enabled\", \"true\")\r\n",
+							"# Define authentication configurations for accessing ADLS Gen2 using Managed Identity\r\n",
+							"spark.conf.set(\"fs.azure.account.auth.type.airbnbdatastorage.dfs.core.windows.net\", \"OAuth\")\r\n",
+							"spark.conf.set(\"fs.azure.account.oauth.provider.type.airbnbdatastorage.dfs.core.windows.net\",\r\n",
+							"               \"org.apache.hadoop.fs.azurebfs.oauth2.ManagedIdentityTokenProvider\")\r\n",
+							"\r\n",
 							""
 						],
 						"outputs": [],
@@ -791,7 +815,7 @@
 							}
 						},
 						"source": [
-							"df = spark.read.parquet(base_path)"
+							"df = spark.read.parquet(f\"{base_path}Accounts/Accounts.parquet\")"
 						],
 						"outputs": [],
 						"execution_count": null
