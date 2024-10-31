@@ -712,7 +712,7 @@
 						"spark.dynamicAllocation.enabled": "false",
 						"spark.dynamicAllocation.minExecutors": "2",
 						"spark.dynamicAllocation.maxExecutors": "2",
-						"spark.autotune.trackingId": "b454a3e3-bb17-4a76-86f6-1c730dc25f5c"
+						"spark.autotune.trackingId": "bee1615b-7326-4ea9-a4a0-471c6634ac10"
 					}
 				},
 				"metadata": {
@@ -775,7 +775,7 @@
 							"               "
 						],
 						"outputs": [],
-						"execution_count": null
+						"execution_count": 2
 					},
 					{
 						"cell_type": "code",
@@ -797,7 +797,7 @@
 							""
 						],
 						"outputs": [],
-						"execution_count": 2
+						"execution_count": 3
 					},
 					{
 						"cell_type": "code",
@@ -816,7 +816,7 @@
 							"df = spark.read.parquet(f\"{base_path}Accounts/Accounts.parquet\")"
 						],
 						"outputs": [],
-						"execution_count": null
+						"execution_count": 4
 					},
 					{
 						"cell_type": "code",
