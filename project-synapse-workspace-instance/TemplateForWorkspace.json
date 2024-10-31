@@ -196,7 +196,7 @@
 							},
 							"executorSize": "Small",
 							"conf": {
-								"spark.dynamicAllocation.enabled": null,
+								"spark.dynamicAllocation.enabled": true,
 								"spark.dynamicAllocation.minExecutors": null,
 								"spark.dynamicAllocation.maxExecutors": null
 							},
@@ -712,7 +712,7 @@
 						"spark.dynamicAllocation.enabled": "false",
 						"spark.dynamicAllocation.minExecutors": "2",
 						"spark.dynamicAllocation.maxExecutors": "2",
-						"spark.autotune.trackingId": "84f9762e-3a07-4f1e-9787-8df15382d517"
+						"spark.autotune.trackingId": "555aa20a-d156-4c82-b453-d387c624652b"
 					}
 				},
 				"metadata": {
@@ -737,19 +737,21 @@
 						"sparkVersion": "3.4",
 						"nodeCount": 3,
 						"cores": 4,
-						"memory": 28
+						"memory": 28,
+						"automaticScaleJobs": false
 					},
 					"sessionKeepAliveTimeout": 30
 				},
 				"cells": [
 					{
 						"cell_type": "code",
+						"metadata": {},
 						"source": [
 							"from pyspark.sql.functions import *\r\n",
 							""
 						],
 						"outputs": [],
-						"execution_count": 22
+						"execution_count": 1
 					},
 					{
 						"cell_type": "code",
@@ -773,7 +775,7 @@
 							""
 						],
 						"outputs": [],
-						"execution_count": 23
+						"execution_count": 2
 					},
 					{
 						"cell_type": "code",
@@ -792,7 +794,7 @@
 							"df = spark.read.parquet(base_path)"
 						],
 						"outputs": [],
-						"execution_count": 36
+						"execution_count": null
 					},
 					{
 						"cell_type": "code",
