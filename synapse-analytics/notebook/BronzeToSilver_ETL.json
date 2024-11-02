@@ -13,11 +13,12 @@
 			"executorMemory": "28g",
 			"executorCores": 4,
 			"numExecutors": 2,
+			"runAsWorkspaceSystemIdentity": true,
 			"conf": {
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "7f8b210f-f06f-4664-a33c-12abe4cafc39"
+				"spark.autotune.trackingId": "2e9ec929-8040-4d4e-8462-67de208ed664"
 			}
 		},
 		"metadata": {
@@ -45,7 +46,7 @@
 				"memory": 28,
 				"automaticScaleJobs": false
 			},
-			"sessionKeepAliveTimeout": 30
+			"sessionKeepAliveTimeout": 10
 		},
 		"cells": [
 			{
@@ -71,10 +72,6 @@
 				},
 				"source": [
 					"spark.conf.set(\"spark.databricks.delta.schema.autoMerge.enabled\", \"true\")\r\n",
-					"# Define authentication configurations for accessing ADLS Gen2 using Managed Identity\r\n",
-					"spark.conf.set(\"fs.azure.account.auth.type.airbnbdatastorage.dfs.core.windows.net\", \"OAuth\")\r\n",
-					"spark.conf.set(\"fs.azure.account.oauth.provider.type.airbnbdatastorage.dfs.core.windows.net\",\r\n",
-					"               \"org.apache.hadoop.fs.azurebfs.oauth2.ManagedIdentityTokenProvider\")\r\n",
 					"               "
 				],
 				"execution_count": 2
