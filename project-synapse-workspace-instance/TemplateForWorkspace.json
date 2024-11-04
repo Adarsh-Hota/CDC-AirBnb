@@ -1029,7 +1029,7 @@
 						"spark.dynamicAllocation.enabled": "false",
 						"spark.dynamicAllocation.minExecutors": "2",
 						"spark.dynamicAllocation.maxExecutors": "2",
-						"spark.autotune.trackingId": "4251762e-4ae7-489f-b97f-461c74e38384"
+						"spark.autotune.trackingId": "9f72bb61-fd2a-49dc-950a-92d0c033d50b"
 					}
 				},
 				"metadata": {
@@ -1037,7 +1037,7 @@
 					"enableDebugMode": false,
 					"kernelspec": {
 						"name": "synapse_pyspark",
-						"display_name": "python"
+						"display_name": "Synapse PySpark"
 					},
 					"language_info": {
 						"name": "python"
@@ -1054,21 +1054,19 @@
 						"sparkVersion": "3.4",
 						"nodeCount": 3,
 						"cores": 4,
-						"memory": 28,
-						"automaticScaleJobs": false
+						"memory": 28
 					},
 					"sessionKeepAliveTimeout": 10
 				},
 				"cells": [
 					{
 						"cell_type": "code",
-						"metadata": {},
 						"source": [
 							"from pyspark.sql.functions import *\n",
 							""
 						],
 						"outputs": [],
-						"execution_count": 7
+						"execution_count": 1
 					},
 					{
 						"cell_type": "code",
@@ -1090,7 +1088,7 @@
 							""
 						],
 						"outputs": [],
-						"execution_count": null
+						"execution_count": 2
 					},
 					{
 						"cell_type": "code",
@@ -1115,7 +1113,7 @@
 							""
 						],
 						"outputs": [],
-						"execution_count": null
+						"execution_count": 3
 					},
 					{
 						"cell_type": "code",
@@ -1149,7 +1147,7 @@
 							""
 						],
 						"outputs": [],
-						"execution_count": 8
+						"execution_count": 4
 					},
 					{
 						"cell_type": "code",
@@ -1177,7 +1175,7 @@
 							""
 						],
 						"outputs": [],
-						"execution_count": 9
+						"execution_count": 5
 					},
 					{
 						"cell_type": "code",
@@ -1208,7 +1206,7 @@
 							""
 						],
 						"outputs": [],
-						"execution_count": 10
+						"execution_count": 6
 					},
 					{
 						"cell_type": "code",
@@ -1239,7 +1237,7 @@
 							""
 						],
 						"outputs": [],
-						"execution_count": 11
+						"execution_count": 7
 					},
 					{
 						"cell_type": "code",
@@ -1271,7 +1269,7 @@
 							""
 						],
 						"outputs": [],
-						"execution_count": 12
+						"execution_count": 8
 					}
 				]
 			},
