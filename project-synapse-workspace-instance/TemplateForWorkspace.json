@@ -1029,7 +1029,7 @@
 						"spark.dynamicAllocation.enabled": "false",
 						"spark.dynamicAllocation.minExecutors": "2",
 						"spark.dynamicAllocation.maxExecutors": "2",
-						"spark.autotune.trackingId": "4dbcf1b5-0cc9-442b-bd3e-5f58826291a0"
+						"spark.autotune.trackingId": "4251762e-4ae7-489f-b97f-461c74e38384"
 					}
 				},
 				"metadata": {
@@ -1054,13 +1054,15 @@
 						"sparkVersion": "3.4",
 						"nodeCount": 3,
 						"cores": 4,
-						"memory": 28
+						"memory": 28,
+						"automaticScaleJobs": false
 					},
 					"sessionKeepAliveTimeout": 10
 				},
 				"cells": [
 					{
 						"cell_type": "code",
+						"metadata": {},
 						"source": [
 							"from pyspark.sql.functions import *\n",
 							""
@@ -1083,8 +1085,8 @@
 						},
 						"source": [
 							"# Define paths\r\n",
-							"silver_base_path = \"abfss://fintech@airbnbdatagds.dfs.core.windows.net/silver/fintech/\"\r\n",
-							"output_base_path = \"abfss://fintech@airbnbdatagds.dfs.core.windows.net/gold/fintech/\"\r\n",
+							"silver_base_path = \"abfss://fintech@airbnbdatastorage.dfs.core.windows.net/silver/fintech/\"\r\n",
+							"output_base_path = \"abfss://fintech@airbnbdatastorage.dfs.core.windows.net/gold/fintech/\"\r\n",
 							""
 						],
 						"outputs": [],
