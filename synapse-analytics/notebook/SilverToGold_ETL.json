@@ -18,7 +18,7 @@
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "4dbcf1b5-0cc9-442b-bd3e-5f58826291a0"
+				"spark.autotune.trackingId": "9d645be5-cd00-4403-9f7c-1c04f15ce575"
 			}
 		},
 		"metadata": {
@@ -72,8 +72,8 @@
 				},
 				"source": [
 					"# Define paths\r\n",
-					"silver_base_path = \"abfss://fintech@airbnbdatagds.dfs.core.windows.net/silver/fintech/\"\r\n",
-					"output_base_path = \"abfss://fintech@airbnbdatagds.dfs.core.windows.net/gold/fintech/\"\r\n",
+					"silver_base_path = \"abfss://fintech@airbnbdatastorage.dfs.core.windows.net/silver/fintech/\"\r\n",
+					"output_base_path = \"abfss://fintech@airbnbdatastorage.dfs.core.windows.net/gold/fintech/\"\r\n",
 					""
 				],
 				"execution_count": null
