@@ -47,6 +47,9 @@
 				},
 				{
 					"name": "FinalColumns"
+				},
+				{
+					"name": "cast1"
 				}
 			],
 			"scriptLines": [
@@ -110,7 +113,7 @@
 				"          property_id = property_id,",
 				"          amount = amount,",
 				"          currency = currency) ~> DerivedColumn",
-				"DerivedColumn, SynapseBookingFactTable lookup(DerivedColumn@booking_id == SynapseBookingFactTable@booking_id,",
+				"cast1, SynapseBookingFactTable lookup(DerivedColumn@booking_id == SynapseBookingFactTable@booking_id,",
 				"     multiple: false,",
 				"     pickup: 'first',",
 				"     desc(SynapseBookingFactTable@timestamp, true),",
@@ -137,6 +140,10 @@
 				"     ),",
 				"     skipDuplicateMapInputs: false,",
 				"     skipDuplicateMapOutputs: false) ~> FinalColumns",
+				"DerivedColumn cast(output(",
+				"          booking_id as string 'string'",
+				"     ),",
+				"     errors: true) ~> cast1",
 				"FinalColumns sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     input(",
