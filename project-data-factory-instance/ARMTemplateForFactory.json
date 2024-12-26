@@ -44,7 +44,7 @@
 						"userProperties": [],
 						"typeProperties": {
 							"pipeline": {
-								"referenceName": "LoadCustomerDimDataToSynapse",
+								"referenceName": "LoadCustomerDim",
 								"type": "PipelineReference"
 							},
 							"waitOnCompletion": true,
@@ -82,7 +82,7 @@
 				"annotations": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/LoadCustomerDimDataToSynapse')]",
+				"[concat(variables('factoryId'), '/pipelines/LoadCustomerDim')]",
 				"[concat(variables('factoryId'), '/pipelines/LoadBookingFact')]"
 			]
 		},
@@ -175,7 +175,7 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/LoadCustomerDimDataToSynapse')]",
+			"name": "[concat(parameters('factoryName'), '/LoadCustomerDim')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -954,13 +954,13 @@
 						"          booking_date = SpecificColumns@booking_date,",
 						"          amount = SpecificColumns@amount,",
 						"          currency = SpecificColumns@currency,",
-						"          timestamp = SpecificColumns@timestamp,",
+						"          city = SpecificColumns@city,",
+						"          country = SpecificColumns@country,",
+						"          full_address = SpecificColumns@full_address,",
 						"          stay_duration = SpecificColumns@stay_duration,",
 						"          booking_year = SpecificColumns@booking_year,",
 						"          booking_month = SpecificColumns@booking_month,",
-						"          full_address = SpecificColumns@full_address,",
-						"          city = SpecificColumns@city,",
-						"          country = SpecificColumns@country",
+						"          timestamp = SpecificColumns@timestamp",
 						"     ),",
 						"     skipDuplicateMapInputs: true,",
 						"     skipDuplicateMapOutputs: true) ~> FinalColumns",
