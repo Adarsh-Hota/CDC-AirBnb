@@ -9,10 +9,14 @@
 						"referenceName": "CosmoDBBookingDataset",
 						"type": "DatasetReference"
 					},
-					"name": "source1"
+					"name": "TestCosmoDB"
 				}
 			],
-			"sinks": [],
+			"sinks": [
+				{
+					"name": "TestSink"
+				}
+			],
 			"transformations": [],
 			"scriptLines": [
 				"source(output(",
@@ -30,7 +34,11 @@
 				"     ),",
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     format: 'document') ~> source1"
+				"     format: 'document') ~> TestCosmoDB",
+				"TestCosmoDB sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> TestSink"
 			]
 		}
 	}
