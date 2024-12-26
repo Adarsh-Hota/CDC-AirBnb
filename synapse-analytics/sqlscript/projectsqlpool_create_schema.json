@@ -2,7 +2,7 @@
 	"name": "projectsqlpool_create_schema",
 	"properties": {
 		"content": {
-			"query": "create schema airbnb;",
+			"query": "create schema airbnb;\n",
 			"metadata": {
 				"language": "sql"
 			},

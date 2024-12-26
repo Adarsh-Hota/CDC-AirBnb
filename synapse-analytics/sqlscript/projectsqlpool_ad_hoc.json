@@ -2,7 +2,7 @@
 	"name": "projectsqlpool_ad_hoc",
 	"properties": {
 		"content": {
-			"query": "select * from airbnb.customer_dim;",
+			"query": "select * from airbnb.customer_dim;\n",
 			"metadata": {
 				"language": "sql"
 			},
