@@ -12,7 +12,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"pipeline": {
-						"referenceName": "LoadCustomerDimDataToSynapse",
+						"referenceName": "LoadCustomerDim",
 						"type": "PipelineReference"
 					},
 					"waitOnCompletion": true

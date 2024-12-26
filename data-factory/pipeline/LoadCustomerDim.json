@@ -1,5 +1,5 @@
 {
-	"name": "LoadCustomerDimDataToSynapse",
+	"name": "LoadCustomerDim",
 	"properties": {
 		"activities": [
 			{
