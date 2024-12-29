@@ -1,0 +1,17 @@
+{
+	"name": "Ad-Hoc Script",
+	"properties": {
+		"content": {
+			"query": "INSERT INTO airbnb.bookings_fact\n(booking_id, property_id, customer_id, owner_id, check_in_date, check_out_date, booking_date, amount, currency, city, country, full_address, stay_duration, booking_year, booking_month, timestamp)\nVALUES\n('d7ee374d-de52-4369-9bb6-1060a9932111', '126c5fb4-2a9b-4c88-922e-6a03dc3652e4', 100, 'f84c1f3e-3728-4bec-a1d6-2dd2aded2af1', '2024-06-01', '2024-08-17', '2024-07-12 00:00:00', 448.46, 'GBP', \n'South Sandraton', 'Micronesia', 'South Sandraton, Micronesia', 77, 2024, 7, '2024-12-26 19:27:59');\n",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "master",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
