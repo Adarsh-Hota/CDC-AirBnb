@@ -2,13 +2,13 @@
 	"name": "Ad-Hoc Script",
 	"properties": {
 		"content": {
-			"query": "INSERT INTO airbnb.bookings_fact\n(booking_id, property_id, customer_id, owner_id, check_in_date, check_out_date, booking_date, amount, currency, city, country, full_address, stay_duration, booking_year, booking_month, timestamp)\nVALUES\n('d7ee374d-de52-4369-9bb6-1060a9932111', '126c5fb4-2a9b-4c88-922e-6a03dc3652e4', 100, 'f84c1f3e-3728-4bec-a1d6-2dd2aded2af1', '2024-06-01', '2024-08-17', '2024-07-12 00:00:00', 448.46, 'GBP', \n'South Sandraton', 'Micronesia', 'South Sandraton, Micronesia', 77, 2024, 7, '2024-12-26 19:27:59');\n",
+			"query": "INSERT INTO airbnb.bookings_fact\n(booking_id, property_id, customer_id, owner_id, check_in_date, check_out_date, booking_date, amount, currency, city, country, full_address, stay_duration, booking_year, booking_month, timestamp)\nVALUES\n-- Record 4\n('d25cb038-e23d-41e8-95f8-1450eeb4704b', '7ec37709-3605-448a-8768-2f967ccb9a41', 51, 'd02c6275-ecec-47cc-b7be-03c0c9140234', '2024-01-20', '2024-11-06', '2024-08-28 00:00:00', 343.23, 'CAD', \n'Davidview', 'United States Minor Outlying Islands', 'Davidview, United States Minor Outlying Islands', DATEDIFF(DAY, '2024-01-20', '2024-11-06'), YEAR('2024-08-28 00:00:00'), MONTH('2024-08-28 00:00:00'), '2024-12-26 19:28:15'),\n-- Record 6\n('350409af-017b-4238-815d-f919fdec1131', '53f8c5a6-d1ad-4579-a414-d3f12fa8963c', 62, '612c48cc-0daa-4cc4-a3f5-319b3bef7000', '2024-06-25', '2024-10-06', '2024-12-02 00:00:00', 561.66, 'USD', \n'Susanberg', 'Netherlands Antilles', 'Susanberg, Netherlands Antilles', DATEDIFF(DAY, '2024-06-25', '2024-10-06'), YEAR('2024-12-02 00:00:00'), MONTH('2024-12-02 00:00:00'), '2024-12-26 19:28:25'),\n-- Record 8\n('482e9ac6-ad1b-4527-9ddb-648eb9736cc0', 'a80f10db-778e-40fc-b121-cd7e406dc26a', 96, '659044f3-fb0c-4c8a-b3d4-c46a477e3a3e', '2024-04-03', '2024-09-27', '2024-02-29 00:00:00', 704.71, 'GBP', \n'West Alyssa', 'Ecuador', 'West Alyssa, Ecuador', DATEDIFF(DAY, '2024-04-03', '2024-09-27'), YEAR('2024-02-29 00:00:00'), MONTH('2024-02-29 00:00:00'), '2024-12-26 19:28:35'),\n-- Record 9\n('be457e77-1268-477d-a14c-de5e513803ee', '37308f79-d645-4f38-9540-83f2bfc85b93', 38, '3491fa8f-fc1d-4ace-aa7c-cd12650a5601', '2024-03-31', '2024-09-07', '2024-01-13 00:00:00', 458.13, 'CAD', \n'Hammondhaven', 'Northern Mariana Islands', 'Hammondhaven, Northern Mariana Islands', DATEDIFF(DAY, '2024-03-31', '2024-09-07'), YEAR('2024-01-13 00:00:00'), MONTH('2024-01-13 00:00:00'), '2024-12-26 19:28:40'),\n-- Record 10\n('d7355441-f95d-4265-b749-5ab9f8989d27', 'd849c040-7b36-4248-a384-869d4b3a608f', 93, '8560f9c6-e959-4f01-b0db-e425c016e17c', '2024-02-29', '2024-06-05', '2024-03-16 00:00:00', 758.94, 'CAD', \n'North Johnny', 'Myanmar', 'North Johnny, Myanmar', DATEDIFF(DAY, '2024-02-29', '2024-06-05'), YEAR('2024-03-16 00:00:00'), MONTH('2024-03-16 00:00:00'), '2024-12-26 19:28:45');\n",
 			"metadata": {
 				"language": "sql"
 			},
 			"currentConnection": {
-				"databaseName": "master",
-				"poolName": "Built-in"
+				"databaseName": "projectsqlpool",
+				"poolName": "projectsqlpool"
 			},
 			"resultLimit": 5000
 		},
