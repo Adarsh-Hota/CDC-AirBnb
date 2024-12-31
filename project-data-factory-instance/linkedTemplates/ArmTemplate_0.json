@@ -193,7 +193,7 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/SynapseSQLPoolBookingFactTable')]",
+			"name": "[concat(parameters('factoryName'), '/SynapseSQLPoolBookingsDimTable')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -280,7 +280,7 @@
 				],
 				"typeProperties": {
 					"schema": "airbnb",
-					"table": "bookings_fact"
+					"table": "bookings_dim"
 				}
 			},
 			"dependsOn": [
@@ -648,19 +648,19 @@
 						},
 						{
 							"dataset": {
-								"referenceName": "SynapseSQLPoolBookingFactTable",
+								"referenceName": "SynapseSQLPoolBookingsDimTable",
 								"type": "DatasetReference"
 							},
-							"name": "SynapseBookingFactTable"
+							"name": "SynapseBookingDimTable"
 						}
 					],
 					"sinks": [
 						{
 							"dataset": {
-								"referenceName": "SynapseSQLPoolBookingFactTable",
+								"referenceName": "SynapseSQLPoolBookingsDimTable",
 								"type": "DatasetReference"
 							},
-							"name": "SinkSynapseBookingFactTable",
+							"name": "SinkSynapseBookingDimTable",
 							"rejectedDataLinkedService": {
 								"referenceName": "AzureDataLakeStorage1",
 								"type": "LinkedServiceReference"
@@ -732,7 +732,7 @@
 						"     validateSchema: false,",
 						"     isolationLevel: 'READ_UNCOMMITTED',",
 						"     format: 'table',",
-						"     staged: true) ~> SynapseBookingFactTable",
+						"     staged: true) ~> SynapseBookingDimTable",
 						"BookingData split(check_out_date<check_in_date,",
 						"     disjoint: true) ~> DataQualityCheck@(BadRecords, AcceptedRecords)",
 						"DataQualityCheck@AcceptedRecords derive(stay_duration = (toTimestamp(check_out_date)-toTimestamp(check_in_date)) / 86400000,",
@@ -751,13 +751,13 @@
 						"          property_id = property_id,",
 						"          amount = amount,",
 						"          currency = currency) ~> DerivedColumn",
-						"SpecificColumns, SynapseBookingFactTable lookup(SpecificColumns@booking_id == SynapseBookingFactTable@booking_id,",
+						"SpecificColumns, SynapseBookingDimTable lookup(SpecificColumns@booking_id == SynapseBookingDimTable@booking_id,",
 						"     multiple: false,",
 						"     pickup: 'first',",
 						"     desc(SynapseBookingFactTable@timestamp, true),",
 						"     broadcast: 'auto')~> JoinWithSynapse",
-						"JoinWithSynapse alterRow(insertIf(isNull(SynapseBookingFactTable@booking_id)),",
-						"     updateIf(not(isNull(SynapseBookingFactTable@booking_id)))) ~> SetInsertAndUpdateAlterRowPolicies",
+						"JoinWithSynapse alterRow(insertIf(isNull(SynapseBookingDimTable@booking_id)),",
+						"     updateIf(not(isNull(SynapseBookingDimTable@booking_id)))) ~> SetInsertAndUpdateAlterRowPolicies",
 						"DerivedColumn cast(output(",
 						"          check_out_date as date,",
 						"          customer_id as integer,",
@@ -867,24 +867,24 @@
 						"          booking_year,",
 						"          booking_month,",
 						"          timestamp",
-						"     )) ~> SinkSynapseBookingFactTable"
+						"     )) ~> SinkSynapseBookingDimTable"
 					]
 				}
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/CosmoDBBookingDataset')]",
-				"[concat(variables('factoryId'), '/datasets/SynapseSQLPoolBookingFactTable')]",
+				"[concat(variables('factoryId'), '/datasets/SynapseSQLPoolBookingsDimTable')]",
 				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStorage1')]"
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/LoadBookingFact')]",
+			"name": "[concat(parameters('factoryName'), '/LoadBookingDim')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"activities": [
 					{
-						"name": "DatasetBookingFactTransformation",
+						"name": "LoadAndTransformBookingDimData",
 						"type": "ExecuteDataFlow",
 						"dependsOn": [],
 						"policy": {
@@ -902,8 +902,8 @@
 								"parameters": {},
 								"datasetParameters": {
 									"BookingData": {},
-									"SynapseBookingFactTable": {},
-									"SinkSynapseBookingFactTable": {}
+									"SynapseBookingDimTable": {},
+									"SinkSynapseBookingDimTable": {}
 								}
 							},
 							"staging": {
@@ -927,11 +927,11 @@
 						}
 					},
 					{
-						"name": "SPAggregateData",
+						"name": "AggregateBookingFactData",
 						"type": "SqlServerStoredProcedure",
 						"dependsOn": [
 							{
-								"activity": "DatasetBookingFactTransformation",
+								"activity": "LoadAndTransformBookingDimData",
 								"dependencyConditions": [
 									"Succeeded"
 								]
@@ -946,7 +946,7 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
-							"storedProcedureName": "[[airbnb].[BookingAggregation]"
+							"storedProcedureName": "[[airbnb].[sp_aggregate_booking_data]"
 						},
 						"linkedServiceName": {
 							"referenceName": "AzureSynapseAnalytics1",
@@ -1005,7 +1005,7 @@
 						"userProperties": [],
 						"typeProperties": {
 							"pipeline": {
-								"referenceName": "LoadBookingFact",
+								"referenceName": "LoadBookingDim",
 								"type": "PipelineReference"
 							},
 							"waitOnCompletion": true,
@@ -1020,7 +1020,7 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/pipelines/LoadCustomerDim')]",
-				"[concat(variables('factoryId'), '/pipelines/LoadBookingFact')]"
+				"[concat(variables('factoryId'), '/pipelines/LoadBookingDim')]"
 			]
 		}
 	]
