@@ -1,5 +1,5 @@
 {
-	"name": "BookingDataTransformation",
+	"name": "ETL_BookingDimData",
 	"properties": {
 		"type": "MappingDataFlow",
 		"typeProperties": {
