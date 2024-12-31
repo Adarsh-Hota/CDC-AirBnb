@@ -384,7 +384,7 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/LoadCustomerDim')]",
+			"name": "[concat(parameters('factoryName'), '/Load_Customer_Dim')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -878,7 +878,7 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/LoadBookingDim')]",
+			"name": "[concat(parameters('factoryName'), '/Booking_Dim_Fact_Transformation')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -966,7 +966,7 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/AirBnBCDCPipeline')]",
+			"name": "[concat(parameters('factoryName'), '/AirBnB_CDC_Pipeline')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -981,7 +981,7 @@
 						"userProperties": [],
 						"typeProperties": {
 							"pipeline": {
-								"referenceName": "LoadCustomerDim",
+								"referenceName": "Load_Customer_Dim",
 								"type": "PipelineReference"
 							},
 							"waitOnCompletion": true,
@@ -989,7 +989,7 @@
 						}
 					},
 					{
-						"name": "BookingDataTransformAndComputeAggregateFactData",
+						"name": "Booking_ETL_Fact_and_Dim",
 						"type": "ExecutePipeline",
 						"dependsOn": [
 							{
@@ -1005,7 +1005,7 @@
 						"userProperties": [],
 						"typeProperties": {
 							"pipeline": {
-								"referenceName": "LoadBookingDim",
+								"referenceName": "Booking_Dim_Fact_Transformation",
 								"type": "PipelineReference"
 							},
 							"waitOnCompletion": true,
@@ -1019,8 +1019,8 @@
 				"annotations": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/LoadCustomerDim')]",
-				"[concat(variables('factoryId'), '/pipelines/LoadBookingDim')]"
+				"[concat(variables('factoryId'), '/pipelines/Load_Customer_Dim')]",
+				"[concat(variables('factoryId'), '/pipelines/Booking_Dim_Fact_Transformation')]"
 			]
 		}
 	]
