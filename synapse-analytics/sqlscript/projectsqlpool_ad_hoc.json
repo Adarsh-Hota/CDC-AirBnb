@@ -2,7 +2,7 @@
 	"name": "projectsqlpool_ad_hoc",
 	"properties": {
 		"content": {
-			"query": "select * from airbnb.customer_dim;\n\nDBCC FREEPROCCACHE;\n\nTRUNCATE TABLE airbnb.bookings_fact;\n",
+			"query": "select * from airbnb.customer_dim;\n\nDBCC FREEPROCCACHE;\n\nTRUNCATE TABLE airbnb.bookings_dim;\n\nRENAME OBJECT airbnb.bookings_fact TO bookings_dim;\n",
 			"metadata": {
 				"language": "sql"
 			},
