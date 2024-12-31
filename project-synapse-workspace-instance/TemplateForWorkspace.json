@@ -537,7 +537,7 @@
 			"apiVersion": "2019-06-01-preview",
 			"properties": {
 				"content": {
-					"query": "select * from airbnb.customer_dim;\n\nDBCC FREEPROCCACHE;\n\nTRUNCATE TABLE airbnb.bookings_dim;\n\nRENAME OBJECT airbnb.bookings_fact TO bookings_dim;\n",
+					"query": "select * from airbnb.customer_dim;\n\nDBCC FREEPROCCACHE;\n\nTRUNCATE TABLE airbnb.bookings_dim;\n\nRENAME OBJECT airbnb.bookings_fact TO bookings_dim;\n\nSELECT \n    name AS procedure_name\nFROM \n    sys.procedures\nWHERE \n    type = 'P'\nORDER BY \n    procedure_name;\n\nDROP PROCEDURE airbnb.BookingAggregation;\n",
 					"metadata": {
 						"language": "sql"
 					},
@@ -577,7 +577,7 @@
 			"apiVersion": "2019-06-01-preview",
 			"properties": {
 				"content": {
-					"query": "CREATE PROCEDURE airbnb.BookingAggregation\nAS\nBEGIN\n    TRUNCATE TABLE airbnb.booking_customer_aggregation_fact;\n\n    INSERT INTO airbnb.booking_customer_aggregation_fact\n    SELECT \n        c.country,\n        COUNT_BIG(*) AS total_bookings,\n        SUM(ISNULL(b.amount, 0)) AS total_amount,\n        MAX(b.booking_date) AS last_booking_date\n    FROM \n        airbnb.bookings_dim b\n    JOIN \n        airbnb.customer_dim c ON b.customer_id = c.customer_id\n    GROUP BY \n        c.country;\nEND;\n\nEXEC [airbnb].[BookingAggregation];\n\nSELECT * FROM airbnb.booking_customer_aggregation_fact;\n",
+					"query": "CREATE PROCEDURE airbnb.sp_aggregate_booking_data\nAS\nBEGIN\n    TRUNCATE TABLE airbnb.booking_customer_aggregation_fact;\n\n    INSERT INTO airbnb.booking_customer_aggregation_fact\n    SELECT \n        c.country,\n        COUNT_BIG(*) AS total_bookings,\n        SUM(ISNULL(b.amount, 0)) AS total_amount,\n        MAX(b.booking_date) AS last_booking_date\n    FROM \n        airbnb.bookings_dim b\n    JOIN \n        airbnb.customer_dim c ON b.customer_id = c.customer_id\n    GROUP BY \n        c.country;\nEND;\n\nEXEC [airbnb].[sp_aggregate_booking_data];\n\nSELECT * FROM airbnb.booking_customer_aggregation_fact;\n\nairbnb.BookingAggregation",
 					"metadata": {
 						"language": "sql"
 					},
