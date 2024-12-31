@@ -537,7 +537,7 @@
 			"apiVersion": "2019-06-01-preview",
 			"properties": {
 				"content": {
-					"query": "select * from airbnb.customer_dim;\n\nDBCC FREEPROCCACHE;\n\nTRUNCATE TABLE airbnb.bookings_dim;\n\nRENAME OBJECT airbnb.bookings_fact TO bookings_dim;\n\nSELECT \n    name AS procedure_name\nFROM \n    sys.procedures\nWHERE \n    type = 'P'\nORDER BY \n    procedure_name;\n\nDROP PROCEDURE airbnb.BookingAggregation;\n",
+					"query": "select * from airbnb.customer_dim;\n\nDBCC FREEPROCCACHE;\n\nTRUNCATE TABLE airbnb.bookings_dim;\n\nRENAME OBJECT airbnb.bookings_fact TO bookings_dim;\n\nSELECT \n    name AS procedure_name\nFROM \n    sys.procedures\nWHERE \n    type = 'P'\nORDER BY \n    procedure_name;\n\nDROP PROCEDURE airbnb.BookingAggregation;\n\nCREATE USER [project-data-factory-instance] FROM EXTERNAL PROVIDER;\nEXEC sp_addrolemember 'db_datareader', 'project-data-factory-instance';\nEXEC sp_addrolemember 'db_datawriter', 'project-data-factory-instance';\nEXEC sp_addrolemember 'db_owner', 'project-data-factory-instance';\n\nGRANT SELECT, INSERT, UPDATE, DELETE, CONTROL ON SCHEMA::airbnb TO [project-data-factory-instance];\n\nSELECT \n    dp.name AS PrincipalName,\n    dp.type_desc AS PrincipalType,\n    p.permission_name AS PermissionName,\n    p.state_desc AS PermissionState\nFROM \n    sys.database_permissions p\nJOIN \n    sys.database_principals dp ON p.grantee_principal_id = dp.principal_id\nWHERE dp.name = 'project-data-factory-instance';\n",
 					"metadata": {
 						"language": "sql"
 					},
@@ -592,26 +592,6 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('workspaceName'), '/projectsqlpool_create_stream_table1')]",
-			"type": "Microsoft.Synapse/workspaces/sqlscripts",
-			"apiVersion": "2019-06-01-preview",
-			"properties": {
-				"content": {
-					"query": "Create schema bookymyshow;\n\nCREATE TABLE bookymyshow.bookings_fact (\n    order_id NVARCHAR(50) NOT NULL,\n    booking_time DATETIME2,\n    customer_id NVARCHAR(50),\n    customer_name NVARCHAR(100),\n    customer_email NVARCHAR(100),\n    event_id NVARCHAR(50),\n    event_name NVARCHAR(100),\n    event_location NVARCHAR(200),\n    seat_number NVARCHAR(10),\n    seat_price FLOAT,\n    event_category NVARCHAR(50),\n    booking_day_of_week NVARCHAR(20),\n    booking_hour INT,\n    payment_id NVARCHAR(50),\n    payment_time DATETIME2,\n    amount FLOAT,\n    payment_method NVARCHAR(50),\n    payment_type NVARCHAR(50),\n    booking_event_time DATETIME2,\n    payment_event_time DATETIME2\n);\n\nSELECT * FROM bookymyshow.bookings_fact;\n\nTRUNCATE TABLE bookymyshow.bookings_fact;\n",
-					"metadata": {
-						"language": "sql"
-					},
-					"currentConnection": {
-						"databaseName": "master",
-						"poolName": "Built-in"
-					},
-					"resultLimit": 5000
-				},
-				"type": "SqlQuery"
-			},
-			"dependsOn": []
-		},
-		{
 			"name": "[concat(parameters('workspaceName'), '/projectsqlpool_create_table1')]",
 			"type": "Microsoft.Synapse/workspaces/sqlscripts",
 			"apiVersion": "2019-06-01-preview",
@@ -658,26 +638,6 @@
 			"properties": {
 				"content": {
 					"query": "CREATE TABLE airbnb.booking_customer_aggregation_fact\nWITH (DISTRIBUTION = ROUND_ROBIN)\nAS\nSELECT \n    c.country,\n    COUNT_BIG(*) AS total_bookings,\n    SUM(ISNULL(b.amount, 0)) AS total_amount,\n    MAX(b.booking_date) AS last_booking_date\nFROM \n    airbnb.bookings_dim b\nJOIN \n    airbnb.customer_dim c ON b.customer_id = c.customer_id\nGROUP BY \n    c.country;\n\nSELECT * FROM airbnb.booking_customer_aggregation_fact;\n",
-					"metadata": {
-						"language": "sql"
-					},
-					"currentConnection": {
-						"databaseName": "projectsqlpool",
-						"poolName": "projectsqlpool"
-					},
-					"resultLimit": 5000
-				},
-				"type": "SqlQuery"
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('workspaceName'), '/projectsqlpool_create_user')]",
-			"type": "Microsoft.Synapse/workspaces/sqlscripts",
-			"apiVersion": "2019-06-01-preview",
-			"properties": {
-				"content": {
-					"query": "CREATE USER [project-data-factory-instance] FROM EXTERNAL PROVIDER;\nEXEC sp_addrolemember 'db_datareader', 'project-data-factory-instance';\nEXEC sp_addrolemember 'db_datawriter', 'project-data-factory-instance';\nEXEC sp_addrolemember 'db_owner', 'project-data-factory-instance';\n\nGRANT SELECT, INSERT, UPDATE, DELETE, CONTROL ON SCHEMA::airbnb TO [project-data-factory-instance];\n\nSELECT \n    dp.name AS PrincipalName,\n    dp.type_desc AS PrincipalType,\n    p.permission_name AS PermissionName,\n    p.state_desc AS PermissionState\nFROM \n    sys.database_permissions p\nJOIN \n    sys.database_principals dp ON p.grantee_principal_id = dp.principal_id\nWHERE dp.name = 'project-data-factory-instance';\n",
 					"metadata": {
 						"language": "sql"
 					},
