@@ -35,7 +35,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"pipeline": {
-						"referenceName": "LoadBookingDim",
+						"referenceName": "Booking_Dim_Fact_Transformation",
 						"type": "PipelineReference"
 					},
 					"waitOnCompletion": true

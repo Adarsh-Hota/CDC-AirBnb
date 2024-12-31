@@ -1,5 +1,5 @@
 {
-	"name": "LoadBookingDim",
+	"name": "Booking_Dim_Fact_Transformation",
 	"properties": {
 		"activities": [
 			{
