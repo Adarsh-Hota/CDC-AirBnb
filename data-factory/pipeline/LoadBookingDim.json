@@ -16,7 +16,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"dataflow": {
-						"referenceName": "BookingDataTransformation",
+						"referenceName": "ETL_BookingDimData",
 						"type": "DataFlowReference"
 					},
 					"staging": {
