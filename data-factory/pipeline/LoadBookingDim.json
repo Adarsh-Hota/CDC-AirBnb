@@ -1,9 +1,9 @@
 {
-	"name": "LoadBookingFact",
+	"name": "LoadBookingDim",
 	"properties": {
 		"activities": [
 			{
-				"name": "DatasetBookingFactTransformation",
+				"name": "LoadAndTransformBookingDimData",
 				"type": "ExecuteDataFlow",
 				"dependsOn": [],
 				"policy": {
@@ -40,11 +40,11 @@
 				}
 			},
 			{
-				"name": "SPAggregateData",
+				"name": "AggregateBookingFactData",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "DatasetBookingFactTransformation",
+						"activity": "LoadAndTransformBookingDimData",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -59,7 +59,7 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"storedProcedureName": "[airbnb].[BookingAggregation]"
+					"storedProcedureName": "[airbnb].[sp_aggregate_booking_data]"
 				},
 				"linkedServiceName": {
 					"referenceName": "AzureSynapseAnalytics1",

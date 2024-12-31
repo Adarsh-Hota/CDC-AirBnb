@@ -1,5 +1,5 @@
 {
-	"name": "SynapseSQLPoolBookingFactTable",
+	"name": "SynapseSQLPoolBookingsDimTable",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "AzureSynapseAnalytics1",
@@ -84,7 +84,7 @@
 		],
 		"typeProperties": {
 			"schema": "airbnb",
-			"table": "bookings_fact"
+			"table": "bookings_dim"
 		}
 	}
 }
