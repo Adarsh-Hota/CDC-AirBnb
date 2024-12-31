@@ -1,5 +1,5 @@
 {
-	"name": "AirBnBCDCPipeline",
+	"name": "AirBnB_CDC_Pipeline",
 	"properties": {
 		"activities": [
 			{
@@ -12,7 +12,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"pipeline": {
-						"referenceName": "LoadCustomerDim",
+						"referenceName": "Load_Customer_Dim",
 						"type": "PipelineReference"
 					},
 					"waitOnCompletion": true

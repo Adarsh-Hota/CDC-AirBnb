@@ -1,5 +1,5 @@
 {
-	"name": "LoadCustomerDim",
+	"name": "Load_Customer_Dim",
 	"properties": {
 		"activities": [
 			{
