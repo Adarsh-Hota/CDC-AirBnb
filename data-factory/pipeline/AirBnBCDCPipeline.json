@@ -19,7 +19,7 @@
 				}
 			},
 			{
-				"name": "BookingDataTransformAndComputeAggregateFactData",
+				"name": "Booking_ETL_Fact_and_Dim",
 				"type": "ExecutePipeline",
 				"dependsOn": [
 					{
