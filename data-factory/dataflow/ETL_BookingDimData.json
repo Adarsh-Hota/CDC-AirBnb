@@ -119,7 +119,7 @@
 				"SpecificColumns, SynapseBookingDimTable lookup(SpecificColumns@booking_id == SynapseBookingDimTable@booking_id,",
 				"     multiple: false,",
 				"     pickup: 'first',",
-				"     desc(SynapseBookingFactTable@timestamp, true),",
+				"     desc(SynapseBookingDimTable@timestamp, true),",
 				"     broadcast: 'auto')~> JoinWithSynapse",
 				"JoinWithSynapse alterRow(insertIf(isNull(SynapseBookingDimTable@booking_id)),",
 				"     updateIf(not(isNull(SynapseBookingDimTable@booking_id)))) ~> SetInsertAndUpdateAlterRowPolicies",
