@@ -537,7 +537,7 @@
 			"apiVersion": "2019-06-01-preview",
 			"properties": {
 				"content": {
-					"query": "select * from airbnb.customer_dim;\n\nDBCC FREEPROCCACHE;\n\nTRUNCATE TABLE airbnb.customer_dim;\n\nTRUNCATE TABLE airbnb.bookings_dim;\n\nRENAME OBJECT airbnb.bookings_fact TO bookings_dim;\n\nSELECT \n    name AS procedure_name\nFROM \n    sys.procedures\nWHERE \n    type = 'P'\nORDER BY \n    procedure_name;\n\nDROP PROCEDURE airbnb.BookingAggregation;\n\nCREATE USER [project-data-factory-instance] FROM EXTERNAL PROVIDER;\nEXEC sp_addrolemember 'db_datareader', 'project-data-factory-instance';\nEXEC sp_addrolemember 'db_datawriter', 'project-data-factory-instance';\nEXEC sp_addrolemember 'db_owner', 'project-data-factory-instance';\n\nGRANT SELECT, INSERT, UPDATE, DELETE, CONTROL ON SCHEMA::airbnb TO [project-data-factory-instance];\n\nSELECT \n    dp.name AS PrincipalName,\n    dp.type_desc AS PrincipalType,\n    p.permission_name AS PermissionName,\n    p.state_desc AS PermissionState\nFROM \n    sys.database_permissions p\nJOIN \n    sys.database_principals dp ON p.grantee_principal_id = dp.principal_id\nWHERE dp.name = 'project-data-factory-instance';\n",
+					"query": "select * from airbnb.customer_dim;\n\n\nDBCC FREEPROCCACHE;\n\n\nTRUNCATE TABLE airbnb.customer_dim;\n\n\nTRUNCATE TABLE airbnb.bookings_dim;\n\n\nRENAME OBJECT airbnb.bookings_fact TO bookings_dim;\n\n\nSELECT \n    name AS procedure_name\nFROM \n    sys.procedures\nWHERE \n    type = 'P'\nORDER BY \n    procedure_name;\n\n\nDROP PROCEDURE airbnb.BookingAggregation;\n\n\nCREATE USER [project-data-factory-instance] FROM EXTERNAL PROVIDER;\nEXEC sp_addrolemember 'db_datareader', 'project-data-factory-instance';\nEXEC sp_addrolemember 'db_datawriter', 'project-data-factory-instance';\nEXEC sp_addrolemember 'db_owner', 'project-data-factory-instance';\n\n\nGRANT SELECT, INSERT, UPDATE, DELETE, CONTROL ON SCHEMA::airbnb TO [project-data-factory-instance];\n\n\nSELECT \n    dp.name AS PrincipalName,\n    dp.type_desc AS PrincipalType,\n    p.permission_name AS PermissionName,\n    p.state_desc AS PermissionState\nFROM \n    sys.database_permissions p\nJOIN \n    sys.database_principals dp ON p.grantee_principal_id = dp.principal_id\nWHERE dp.name = 'project-data-factory-instance';\n\n\nSELECT \n    name AS SchemaName,\n    schema_id AS SchemaID,\n    principal_id AS OwnerPrincipalID\nFROM \n    sys.schemas\nORDER BY \n    name;\n\n\nSELECT \n    name AS ObjectName,\n    type_desc AS ObjectType\nFROM \n    sys.objects\nWHERE \n    schema_id = SCHEMA_ID('db_accessadmin');\n\nDROP SCHEMA airbnb;\n",
 					"metadata": {
 						"language": "sql"
 					},
@@ -562,8 +562,8 @@
 						"language": "sql"
 					},
 					"currentConnection": {
-						"databaseName": "projectsqlpool",
-						"poolName": "projectsqlpool"
+						"databaseName": "master",
+						"poolName": "Built-in"
 					},
 					"resultLimit": 5000
 				},
@@ -602,8 +602,8 @@
 						"language": "sql"
 					},
 					"currentConnection": {
-						"databaseName": "projectsqlpool",
-						"poolName": "projectsqlpool"
+						"databaseName": "master",
+						"poolName": "Built-in"
 					},
 					"resultLimit": 5000
 				},
@@ -1255,18 +1255,6 @@
 				"sparkVersion": "3.4",
 				"isComputeIsolationEnabled": false,
 				"sessionLevelPackagesEnabled": false,
-				"annotations": []
-			},
-			"dependsOn": [],
-			"location": "centralindia"
-		},
-		{
-			"name": "[concat(parameters('workspaceName'), '/projectsqlpool')]",
-			"type": "Microsoft.Synapse/workspaces/sqlPools",
-			"apiVersion": "2019-06-01-preview",
-			"properties": {
-				"collation": "SQL_Latin1_General_CP1_CI_AS",
-				"maxSizeBytes": 263882790666240,
 				"annotations": []
 			},
 			"dependsOn": [],
